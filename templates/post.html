@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+
+{% block head %} 
+<title>Post</title>
+{% endblock %}
+
+{% block body %}
+<h1>This is a body for post</h1>
+    <hr>
+    <h2> Creating New BLog Post:</h2>
+    <br>
+    <form action='/posts' method='POST'>
+        Title: 
+        <input type='text' name='tittle' id='tittle'>
+        <br>
+        Author: 
+        <input type='text' name='author' id='author'>
+        <br>
+        Post: 
+        <input type='text' name='content' id='content'>
+        <br>
+        <input type='submit' value='Post'>
+    </form>
+    <hr>
+    {% for post in posts %}
+        <h2>{{ post.tittle }}</h2>
+
+        {% if post.author %}
+            <small> Created by: {{ post.author }} on {{post.date_posted}}</small>
+        {% else %}
+            <small> Created by: Unknown User on {{post.date_posted}}</small>
+        {% endif %}
+        <br>
+        <br>
+         
+
+        <p>{{ post.content }}</p>
+        <a class='btn btn-danger' href='/posts/delete/{{post.id}}'>Delete</a>
+        <a class='btn btn-primary' href='/posts/edit/{{post.id}}'>Edit</a>
+        <hr>
+    {% endfor %}
+{% endblock %}
